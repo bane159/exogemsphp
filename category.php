@@ -157,7 +157,7 @@ $pages = ceil($countResult->ProductCount / $perPage);
 						
 							<h4>You cannot access shop without activating your account!</h4>
 							<p>Contant administrator to activate your profile. OR</p>
-							<a class="btn btn-primary" href="login.php">Login with an activarted account</a>
+							<a class="btn btn-primary" href="login.php">Login with an activarted account aaaaaaaa</a>
 						
 					</div>
 				</div>
