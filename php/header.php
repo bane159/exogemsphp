@@ -58,7 +58,26 @@ $header = getHeader();
                  endforeach;?>
                 
               
-              <li class="nav-item"><button id="cartButton"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id="cartNumberOfProducts">   </span></button></li>
+              <li class="nav-item">
+                <button id="cartButton"> 
+                  <a href="cart.php">
+                    <i class="ti-shopping-cart"></i>
+                    <span class="nav-shop__circle" id="cartNumberOfProducts">  
+                      <?php if(isLogged()){
+
+                                $cart = getCartItems(getCartId($_SESSION['user'] -> id) -> id);
+                                //  var_dump($cart);
+                                $i = 0;
+                                foreach($cart as $item){
+                                    $i++;
+                                }
+                                echo $i;
+                              }
+                    
+                    ?> </span>
+                  </a> 
+                </button>
+              </li>
               
             </ul>
           </div>

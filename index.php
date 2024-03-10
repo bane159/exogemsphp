@@ -25,7 +25,6 @@ include("php/logic.php");
 <body> 
 
 
-<!-- EDIIIIIIIIIIIIIIIIIIIIIIT -->
 
 
 <!-- DAKDSAD -->

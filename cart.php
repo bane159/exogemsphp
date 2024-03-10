@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once("php/conn.php");
+include("php/logic.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,44 +23,38 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="spinner-holder">
-    <div id="spinner"><i class="fa-solid fa-spinner br-icon"></i></div>
-  </div>
-  <!--================ Start Header Menu Area =================-->
-  <header class="header_area">
-    <div class="main_menu">
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-
-              <li class="nav-item"><a class="nav-link" href="category.html">Shop</a></li>
-
-
-
-              <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-
-			  <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-            </ul>
-
-            <ul class="nav-shop d-flex justify-content-center  my-3">
-              
-              <li class="nav-item"><button id="cartButton"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id="cartNumberOfProducts">   </span></button></li>
-              
-            </ul>
-          </div>
-        </div>
-      </nav>
+<?php if(!isLogged()):?>
+    <div class="d-flex justify-content-center br-restrict-withoutlog">
+        <div class="col-lg-6">
+					<div class="">
+						
+							<h4>You cannot access shop without logging in first!</h4>
+							<p>Make sure to loging if you already have an account with us or register if you are new!</p>
+							<a class="btn btn-primary" href="login.php">Login</a>
+              <a class="btn btn-info" href="register.php">Register Now</a>
+						
+					</div>
+				</div>
     </div>
-  </header>
+    <?php
+      exit;
+    elseif(isInactive()): ?>
+      <div class="d-flex justify-content-center br-restrict-withoutlog">
+        <div class="col-lg-6">
+					<div class="">
+						
+							<h4>You cannot access shop without activating your account!</h4>
+							<p>Contant administrator to activate your profile. OR</p>
+							<a class="btn btn-primary" href="login.php">Login with an activarted account</a>
+						
+					</div>
+				</div>
+    </div>
+	
+    <?php exit; endif;
+    ?>
+
+  <?php include("php/header.php"); ?>
 	<!--================ End Header Menu Area =================-->
 
 	<!-- ================ start banner area ================= -->	
@@ -84,9 +83,82 @@
           <div class="cart_inner">
               <div class="table-responsive">
                   <table class="table" id="cartItemsHolder">
-					
-                      <tbody>
-                      </tbody>
+				  	<thead>
+						<tr>           
+							<th scope="col">Product</th>
+							<th scope="col">Price</th>
+							<th scope="col">Quantity</th>
+							<th scope="col">Total</th>
+						</tr>
+    				</thead>
+					<tbody>
+
+					<?php 
+					  
+					//    var_dump($cart);
+					   foreach($cart as $item):
+					?>
+					<tr>
+						<td>
+								<div class="media">
+									<div class="d-flex">
+										<img src="<?= $item -> imgSrc?>" alt="${product.img.alt}">
+									</div>
+									<div class="media-body">
+										<p id="textProduct"><?= $item ->text ?></p>
+									</div>
+								</div>
+						</td>
+						<td>
+							<h5 id="price"><?= $item -> price ?></h5>
+						</td>
+						<td>
+							<!-- <button class = "btn plus" data-id = "<?=$item -> productId ?>"> <i class ="fa fa-minus"></i></button> -->
+							<div class="product_count">
+								<input type="number" value = "<?= $item -> quantity ?>">
+								<!-- <?= $item -> quantity ?> -->
+							</div>
+							<!-- <button class = "btn minus" data-id = "<?=$item -> productId ?>"> <i class ="fa fa-plus"></i></button> -->
+						</td>
+						<td>
+							<?= $item -> totalPerProd?>
+						</td>
+						<td>
+							<form action= "php/delSingleItem.php" method = "POST">
+								<button type = "submit"  class="removeItem btn" > <i class="fa-solid fa-x "></i> </button>
+								<input type="hidden" value="<?=$item -> productId ?>" name = "product_id"/>
+							</form>
+						</td>
+        		 	</tr>
+
+					<?php endforeach; ?>
+
+
+					</tbody>
+						<tr class="out_button_area">
+                              <td class="">
+							  Subtotal
+                              </td>
+                              <td class="">
+									
+									<?= "999" ?>
+                              </td>
+                              <td>
+								
+								
+                              </td>
+                              <td>
+                                  <div class="checkout_btn_inner d-flex align-items-center">
+                                      <a class="btn btn-info" href="category.php">Continue Shopping</a>
+										<form action="php/deleteCartLogic.php" method = "POST">
+
+											<input type="submit" id = "clearCart" class = "btn btn-primary" value="clear cart"/>
+											
+										</form>
+                                      <a class="primary-btn ml-2" href="checkout.php">Proceed to checkout</a>
+                                  </div>
+                              </td>
+                          </tr>
                   </table>
               </div>
           </div>
@@ -97,74 +169,7 @@
 
 
   <!--================ Start footer Area  =================-->	
-  <footer class="footer">
-		<div class="footer-area">
-			<div class="container">
-				<div class="row section_gap">
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title large_title">Our Mission</h4>
-							<p>
-								We are here for your luxury needs.
-                Feel free to come to browse our products and if you want to rent them.
-                Make sure to pay us a visit!
-							</p>
-							
-						</div>
-					</div>
-					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
-						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Quick Links</h4>
-							<ul class="list">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="category.html">Shop</a></li>
-								<li><a href="contact.html">Contact</a></li>
-                				<li><a href="about.html">About</a></li>
-								<li><a href="Dokumentacija.docx" target="_blank">Documentacija</a></li>
-							</ul>
-						</div>
-					</div>
-					
-					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
-						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Contact Us</h4>
-							<div class="ml-40">
-								<p class="sm-head">
-									<span class="fa fa-location-arrow"></span>
-									Head Office
-								</p>
-								<p>123, Dalmatinska, Belgrage</p>
-	
-								<p class="sm-head">
-									<span class="fa fa-phone"></span>
-									+381 6123456789
-								
-	
-								<p class="sm-head">
-									<span class="fa fa-envelope"></span>
-									Email
-								</p>
-								<p>
-									<a href="mailto:info@ict.edu.rs">info@ict.edu.rs</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row d-flex">
-					<p class="col-lg-12 footer-text text-center">
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-				</div>
-			</div>
-		</div>
-	</footer>
+  <?php include("php/footer.php"); ?>
 	<!--================ End footer Area  =================-->
 
 

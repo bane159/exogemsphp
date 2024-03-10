@@ -62,7 +62,7 @@ function checkEmailAndPass($email, $password){
 function getFullUser($email, $password){
     global $conn;
     $enc = md5($password);
-    $query = "SELECT u.id as id, u.name as name, u.lastname as lastname, u.email as email, u.adress as adress, r.name as roleName FROM users u INNER JOIN role r ON u.role_id = r.id WHERE email = :email AND password = :password";
+    $query = "SELECT u.id as id, u.name as name, u.lastname as lastname, u.email as email, u.adress as adress, r.name as roleName, u.isActive as isActive FROM users u INNER JOIN role r ON u.role_id = r.id WHERE email = :email AND password = :password";
     $stmt = $conn->prepare( $query );
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $enc);
@@ -81,6 +81,9 @@ function isLogged()
 {
     return isset($_SESSION["user"]);
 
+}
+function isInactive(){
+    return isLogged() && $_SESSION["user"] -> isActive == 0;
 }
 
 function isAdmin(){
@@ -192,4 +195,83 @@ function getSubbedUsers(){
 
 
     return $conn -> query($query) -> fetchAll();
+}
+function getAllUsers(){
+    global $conn;
+    $query = "SELECT * FROM USERS";
+    return $conn -> query($query) -> fetchAll();
+}
+function activateUser($userId){
+    global $conn;   
+    $query = "UPDATE users SET isActive = 1 WHERE id = $userId";
+    return $conn -> exec($query);
+
+}
+function deactivateUser($userId){   
+
+    global $conn;
+    $query = "UPDATE users SET isActive = 0 WHERE id = $userId";
+    return $conn -> exec($query);
+}
+function deleteUser($userId){
+    global $conn;
+    $query = "DELETE FROM users WHERE `users`.`id` = $userId";
+    return $conn -> exec($query);
+}
+
+function getCart($userId){
+    global $conn;
+    $query = "SELECT * FROM cart WHERE user_id = $userId";
+    return $conn -> query($query) -> fetch();
+}
+function createCart($userId){
+    global $conn;
+    $query = "INSERT INTO cart(user_id) VALUES($userId)";
+    return $conn -> exec($query);
+}
+function addToCart($basketId, $prodId){
+    global $conn;
+    $query = "INSERT INTO cart_product(cart_id, product_id, quantity) VALUES($basketId, $prodId, 1)";
+    return $conn -> exec($query);
+}
+function getCartId($uid){
+    global $conn;
+    $query = "SELECT id FROM cart WHERE user_id = $uid";
+    return $conn -> query($query) -> fetch();
+}
+function alreadyInCart($id, $prodId){
+    global $conn;
+    $query = "SELECT id FROM cart_product cp WHERE cart_id = $id AND product_id = $prodId";
+    return $conn -> query($query) -> fetch();
+}
+function updateQtty($cartId, $prodId){
+    global $conn;
+    $query = "UPDATE cart_product SET quantity = quantity + 1 WHERE cart_id = $cartId AND product_id = $prodId";
+    return $conn -> query($query) -> fetch();
+}
+function getCartItems($cartId){
+
+    global $conn;
+    $query = "SELECT c.id as cartId, p.id as productId,pic.path as imgSrc, p.name as productName,p.text as `text`, SUM(cp.quantity) as quantity, SUM(cp.quantity) * pri.price as totalPerProd, pri.price as price FROM cart_product cp INNER JOIN products p ON cp.product_id = p.id INNER JOIN cart c ON cp.cart_id = c.id INNER JOIN prices pri ON p.id = pri.product_id INNER JOIN pictures pic ON p.picture_id = pic.id WHERE cp.cart_id = $cartId AND c.status = 1 GROUP BY cp.product_id";
+    $rez = $conn -> query($query) -> fetchAll();
+    return $rez;
+}
+function deleteProdCart($cartId, $prodId){      
+    global $conn;
+    global $conn;
+    $query = "DELETE cp FROM cart_product cp WHERE cp.cart_id = :id AND ( SELECT status FROM cart WHERE id = :id ) = 1 AND cp.product_id = :prodId";
+    $stmt = $conn -> prepare( $query );
+    $stmt -> bindParam(":id", $cartId);
+    $stmt -> bindParam(":prodId", $prodId);
+    return $stmt -> execute();
+
+}
+
+function deleteCart($cartId){
+    global $conn;
+    $query = "DELETE cp FROM cart_product cp WHERE cp.cart_id = :id AND ( SELECT status FROM cart WHERE id = :id ) = 1";
+    $stmt = $conn -> prepare( $query );
+    $stmt -> bindParam(":id", $cartId);
+    return $stmt -> execute();
+
 }

@@ -148,7 +148,23 @@ $pages = ceil($countResult->ProductCount / $perPage);
 					</div>
 				</div>
     </div>
-    <?php endif;?>
+    <?php
+      exit;
+    elseif(isInactive()): ?>
+      <div class="d-flex justify-content-center br-restrict-withoutlog">
+        <div class="col-lg-6">
+					<div class="">
+						
+							<h4>You cannot access shop without activating your account!</h4>
+							<p>Contant administrator to activate your profile. OR</p>
+							<a class="btn btn-primary" href="login.php">Login with an activarted account</a>
+						
+					</div>
+				</div>
+    </div>
+    <?php  exit; endif;
+      
+    ?>
 	<?php include("php/header.php"); ?>
 	<!--================ End Header Menu Area =================-->
 
@@ -362,14 +378,14 @@ $pages = ceil($countResult->ProductCount / $perPage);
                   <div class="card-product__img">
                     <img class="card-img" src="<?= $p -> imgSrc ?>" alt="<?= $p -> imgSrc ?>">
                     <ul class="card-product__imgOverlay">
-                      <li><button class = "addToCard" data-id="${x.id}"><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
+                      <li><button class = "addToCard" data-id="<?=$p -> id ?>"><i class="ti-shopping-cart"></i></button></li>
+                      <!-- <li><button><i class="ti-heart"></i></button></li> -->
                     </ul>
                   </div>
                   <div class="card-body">
                     <p><?=  ucfirst($p -> category)?></p>
                     <h4 class="card-product__title"><a href="#"><?= $p -> text?></a></h4>
-                    <del class = "card-product__price br-sm-text">$${x.old_price} </del>
+                    <!-- <del class = "card-product__price br-sm-text">999</del> -->
                     <p class="card-product__price">$<?= $p->price ?></p>
                   </div>
                 </div>
