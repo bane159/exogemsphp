@@ -198,7 +198,7 @@ function getSubbedUsers(){
 }
 function getAllUsers(){
     global $conn;
-    $query = "SELECT * FROM USERS";
+    $query = "SELECT * FROM users";
     return $conn -> query($query) -> fetchAll();
 }
 function activateUser($userId){
