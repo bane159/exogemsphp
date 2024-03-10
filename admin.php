@@ -31,6 +31,13 @@ include("php/logic.php");
     <div id="spinner"><i class="fa-solid fa-spinner br-icon"></i></div>
   </div> -->
   <!--================ Start Header Menu Area =================-->
+   
+
+    <?php 
+        if(!isAdmin()){
+            header("Location: 404.php");
+        }
+    ?>
   <?php include "php/header.php"?>
 	<!--================ End Header Menu Area =================-->
 

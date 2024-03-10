@@ -221,7 +221,7 @@ function deleteUser($userId){
 
 function getCart($userId){
     global $conn;
-    $query = "SELECT * FROM cart WHERE user_id = $userId";
+    $query = "SELECT id FROM cart WHERE user_id = $userId";
     return $conn -> query($query) -> fetch();
 }
 function createCart($userId){
@@ -274,4 +274,32 @@ function deleteCart($cartId){
     $stmt -> bindParam(":id", $cartId);
     return $stmt -> execute();
 
+}
+
+function orderFromCart($userId){
+    global $conn;
+    $query = "UPDATE cart SET `status` = 0 WHERE user_id = $userId";
+    return $conn -> exec($query);
+
+
+
+}
+
+function createOrder($cartId, $total, $username, $lastname, $street, $city, $state, $zip, $message){
+    global $conn;
+    $orderId = random_int(0,999999999);
+    $query = "INSERT INTO `checkout` (`cart_id`,  `total`, `username`, `lastname`, `street`, `city`, `state`, `postal`, `note`, `order_id`) VALUES ( :cartId, :total , :username, :lastname, :street, :city, :state, :zip, :message, $orderId);";
+    $stmt = $conn -> prepare( $query );
+    $stmt -> bindParam(":cartId",$cartId);
+    $stmt -> bindParam(":total", $total);
+    $stmt -> bindParam(":username", $username);
+    $stmt -> bindParam(":lastname", $lastname);
+    $stmt -> bindParam(":street", $street);
+    $stmt -> bindParam(":city", $city);
+    $stmt -> bindParam(":state", $state);
+    $stmt -> bindParam(":zip", $zip);
+    $stmt -> bindParam(":message", $message);
+    $res = $stmt -> execute();
+
+    return $orderId;
 }

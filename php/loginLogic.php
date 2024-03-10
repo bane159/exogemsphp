@@ -24,10 +24,10 @@ if(isPost()) {
 
         $_SESSION["user"] = getFullUser($email, $password);
 
-        $cart = getCart($_SESSION["user"] -> id);
+        $cart = getCart($_SESSION["user"] -> id) -> id;
         if(!$cart){
             createCart($_SESSION["user"] -> id);
-            http_response_code(201); //created cart
+            // http_response_code(201); //created cart
         }
         
 
