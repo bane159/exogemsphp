@@ -36,6 +36,7 @@ include("php/logic.php");
     <?php 
         if(!isAdmin()){
             header("Location: 404.php");
+            exit;
         }
     ?>
   <?php include "php/header.php"?>

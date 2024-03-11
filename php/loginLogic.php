@@ -25,14 +25,16 @@ if(isPost()) {
         $_SESSION["user"] = getFullUser($email, $password);
 
         $cart = getCart($_SESSION["user"] -> id) -> id;
+        // var_dump($res);
         if(!$cart){
-            createCart($_SESSION["user"] -> id);
+            $res = createCart($_SESSION["user"] -> id);
+            // var_dump($res);
             // http_response_code(201); //created cart
         }
         
 
 
-        echo json_encode(array("status"=> "200","message"=> "You have successfully logged in"));
+        echo json_encode(array("status"=> "202","message"=> "You have successfully logged in"));
         http_response_code(202); //Logged in
 
     }

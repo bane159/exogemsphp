@@ -128,7 +128,17 @@ include("php/logic.php");
 											<input type="submit" id = "clearCart" class = "btn btn-primary" value="clear cart"/>
 											
 										</form>
+										<?php 
+											$cart = getCartItems(getCartId($_SESSION['user'] -> id) -> id);
+											//  var_dump($cart);
+											$i = 0;
+											foreach($cart as $item){
+												$i++;
+											}
+											if($i > 0):
+										?>
                                       <a class="primary-btn ml-2" href="checkout.php">Proceed to checkout</a>
+									  <?php endif;?>
                                   </div>
                               </td>
                           </tr>
