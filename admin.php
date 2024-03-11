@@ -1,9 +1,14 @@
 <?php
 session_start();
-require_once("php/conn.php");
 include("php/logic.php");
+var_dump(!isAdmin());
+if(!isAdmin()){
 
+    header("Location: 404.php");
+    exit();
+}
 
+require_once("php/conn.php");
 
 ?>
 
@@ -19,10 +24,7 @@ include("php/logic.php");
   <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css" />
 	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css" />
 	<link rel="stylesheet" href="vendors/linericon/style.css" />
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css" />
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css" />
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css" />
-  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css" />
+
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -33,12 +35,7 @@ include("php/logic.php");
   <!--================ Start Header Menu Area =================-->
    
 
-    <?php 
-        if(!isAdmin()){
-            header("Location: 404.php");
-            exit;
-        }
-    ?>
+
   <?php include "php/header.php"?>
 	<!--================ End Header Menu Area =================-->
 

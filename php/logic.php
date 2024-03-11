@@ -87,7 +87,6 @@ function isInactive(){
 }
 
 function isAdmin(){
-    
     return isLogged() && $_SESSION["user"] -> roleName == "admin";
 }
 
