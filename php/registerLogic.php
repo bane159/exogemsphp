@@ -34,7 +34,7 @@ if(isPost()){
                 $res = addUser($name, $lastname, $email, $passEnc, $adress);
                 if($res){ 
                     $user = getLatestUser();
-                     mail( $user -> email, "Activation Email Exogems", "To confirm your email click this link: https://www.bane.wtf/exogems/confirmation.php?id=" . $user->id  . "&key=". $user -> activation_key ." If you didnt register  DO NOT CLICK THIS");
+                     //mail( $user -> email, "Activation Email Exogems", "To confirm your email click this link: https://www.bane.wtf/exogems/activateViaEmail.php?id=" . $user->id  . "&key=". $user -> activation_key ." If you didnt register  DO NOT CLICK THIS");
                     echo json_encode(array("succes"=> $res, "message" => "U have succesfully registered"));
                     // http_response_code(201);
                 }

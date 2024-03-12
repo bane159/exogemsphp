@@ -11,12 +11,10 @@ if(!isAdmin()){
 require_once("php/conn.php");
 
     $id = get("id");
-    if(is_numeric($id) && $id > 0){
-
-    }
-    else{
+    if(!is_numeric($id) || !$id > 0){
         exit;
     }
+   
 
 
 

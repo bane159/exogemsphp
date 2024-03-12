@@ -1,13 +1,13 @@
 window.onload = () => {
 
-    $("body").css("overflow", "scroll")
+    // $("body").css("overflow", "scroll")
     let nameInput = $("#name");
 
 
     // ===========================   name validaiton    ===================================
 
-    const nameRegEx = /^[A-Z][a-z]{1,10}([ ][A-Z][a-z]{3,15}){0,2}$/;
-    const emailRegEx = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+    const nameRegEx = /^(?=.*[a-zA-Z].{2,})[a-zA-Z]{1,255}$/;
+    // const emailRegEx = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
     nameInput.on("blur", () => {
         
         if(nameInput.val() == ''){
@@ -17,7 +17,7 @@ window.onload = () => {
         }
     if(!nameRegEx.test(nameInput.val())){
             dangerBorder("name")
-            displayError("Name is in wrong format", "nameError")
+            displayError("Subject ineeds to have atleast 2 letters and no special characters", "nameError")
             return
         }
 
@@ -28,39 +28,44 @@ window.onload = () => {
 
     // ===========================   mail validaiton    ===================================
 
-    let emailInput = $("#email");
-    emailInput.on("blur", () => {
+    // let emailInput = $("#email");
+    // emailInput.on("blur", () => {
         
-        if(emailInput.val() == ''){
-            removeBorder("email")
-            removeError("emailError")
-            return
-        }
-    if(!emailRegEx.test(emailInput.val())){
-            dangerBorder("email")
-            displayError("email is in wrong format", "emailError")
-            return
-        }
-        successBorder("email")
-        removeError("emailError")
-    })
+    //     if(emailInput.val() == ''){
+    //         removeBorder("email")
+    //         removeError("emailError")
+    //         return
+    //     }
+    // if(!emailRegEx.test(emailInput.val())){
+    //         dangerBorder("email")
+    //         displayError("email is in wrong format", "emailError")
+    //         return
+    //     }
+    //     successBorder("email")
+    //     removeError("emailError")
+    // })
+    //============================= Text Area=====================================
+    const areaRegEx = "";
+    $("#message").on("keyup", () => {
 
+
+    })
 
     // ===========================   country validaiton    ===================================
 
-    let countrySelect = $("#country")
-    countrySelect.on("change", () => {
+    // let countrySelect = $("#country")
+    // countrySelect.on("change", () => {
 
-        if(countrySelect.val() == "Choose"){
-            dangerBorder("country")
-            displayError("country is required", "countryError")
-            return
-        }
+    //     if(countrySelect.val() == "Choose"){
+    //         dangerBorder("country")
+    //         displayError("country is required", "countryError")
+    //         return
+    //     }
 
-        successBorder("country")
-        removeError("countryError")
+    //     successBorder("country")
+    //     removeError("countryError")
 
-    })
+    // })
 
 
     // ===========================   submit validaiton    ===================================
@@ -69,43 +74,42 @@ window.onload = () => {
         console.log("click")
         
     
-            e.preventDefault()
+           
         
 
         if(!nameRegEx.test(nameInput.val())){
             dangerBorder("name")
-            displayError("Name is in wrong format", "nameError")
+            displayError("Subject ineeds to have atleast 2 letters and no special characters", "nameError")
             
         }
-        if(!emailRegEx.test(emailInput.val())){
-            dangerBorder("email")
-            displayError("email is in wrong format", "emailError")
-        }
+        // if(!emailRegEx.test(emailInput.val())){
+        //     dangerBorder("email")
+        //     displayError("email is in wrong format", "emailError")
+        // }
 
-        if(countrySelect.val() == "Choose"){
-            dangerBorder("country")
-            displayError("country is required", "countryError")
-        }
-        let radios = $("input[name=sex]")
-        var br = 0;
-        for(let i of radios){
-            if(i.checked){
-            br++; 
-            }
-        }
-        if(br === 0){
-            $("#sexError").html("Choose sex").removeClass("d-none").addClass("d-block")
-        }
-        else{
-            $("#sexError").removeClass("d-block").addClass("d-none")
-        }
+        // if(countrySelect.val() == "Choose"){
+        //     dangerBorder("country")
+        //     displayError("country is required", "countryError")
+        // }
+     
 
 
         // ========= Check regex then send the form if true =============
 
-        if(nameRegEx.test(nameInput.val()) && emailRegEx.test(emailInput.val()) && countrySelect.val() != "Choose" && br == 1){
-            document.querySelector("#contactForm").submit() 
-        
+        if(nameRegEx.test(nameInput.val())){
+            data = {
+                subject: nameInput.val(),
+                message: $("#message").val()
+
+
+            }
+            ftc("php/insertContact.php", data).then((json) => {
+                // window.location = json.msg
+                console.log("Stiglo");
+                document.querySelector("#contactMessage").innerHTML = json.msg
+
+
+            }).catch()
         }
 
     })
@@ -139,3 +143,18 @@ function removeBorder(element) {
     document.querySelector(`#${element}`).classList.remove("border-danger")
 
   }
+  async function ftc(url, data){
+    let ftc = await fetch(url, 
+         {
+             method: "POST",
+             headers: {
+                 "Content-Type" : "application/json"
+             },
+             body : JSON.stringify(data)
+ 
+         })
+         .catch((xhr) => {
+             
+         })
+         return ftc.json();
+ }

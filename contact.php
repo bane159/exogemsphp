@@ -9,19 +9,7 @@ include("php/logic.php");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Aroma Shop - Contact</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png" />
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css" />
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css" />
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css" />
-	<link rel="stylesheet" href="vendors/linericon/style.css" />
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css" />
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css" />
-
-  <link rel="stylesheet" href="css/style.css" />
+  <?php include("php/head.php");?>
 </head>
 <body>
 
@@ -92,44 +80,14 @@ include("php/logic.php");
           </div>
         </div>
         <div class="col-md-8 col-lg-9">
-          <form action="index.html" class="form-contact contact_form"  method="post" id="contactForm" >
+          <!-- <form action="index.html" class="form-contact contact_form"  method="post" id="contactForm" > -->
             <div class="row">
-              <div class="col-lg-5">
+              <div class="col-lg-7">
                 <div class="form-group">
-                  <input class="form-control" name="name" id="name" type="text" placeholder="Enter your name" />
-                  <span class="text-danger mx-3 d-none" id="nameError"> Name is entered increctly</span>
+                  <input class="form-control" name="name" id="name" type="text" placeholder="Subject" />
+                  <span class="text-danger mx-3 d-none" id="nameError"> Subject is entered incorectly</span>
                 </div>
-                <div class="form-group">
-                  <input class="form-control" name="email" id="email" type="email" placeholder="Enter email address" />
-                  <span class="text-danger mx-3 d-none"  id="emailError"> Invalid Email adress</span>
-                </div>
-                <div class="form-group">
-                  <!-- <input class="form-control" name="subject" id="subject" type="text" placeholder="Enter Subject" /> -->
-                  <select class="form-select br-filter " aria-label="Default select example" id="country">
-                    <option value="Choose"> Choose Country...</option>
-                    <option value="Serbia"> Serbia</option>
-                    <option value="Croatia"> Croatia</option>
-                    <option value="Romania">Romania</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Ukraine">Ukraine</option>
-                  </select>
-                  <span class="text-danger mx-3 d-none" id="countryError">Chose atleast one option</span>
-                </div>
-                <div class="form-check form-group form-check-inline mx-2">
-                  <input class="form-check-input" type="radio" id="maleSex" value="M" name="sex"/>
-                  <label class="form-check-label" for="maleSex">Male</label>
-                </div>
-                <div class="form-check form-group form-check-inline">
-                  <input class="form-check-input" type="radio" id="femaleSex" value="F"  name="sex"/>
-                  <label class="form-check-label" for="femaleSex">Female</label>
-                  
-                </div>
-                <div class="form-group">
-                  <span class="text-danger mx-3 d-none" id="sexError">Choose sex ( ͡° ͜ʖ ͡°)</span>
-                </div>
-                
-                
-              
+
               </div>
               <div class="col-lg-7">
                 <div class="form-group">
@@ -138,9 +96,12 @@ include("php/logic.php");
               </div>
             </div>
             <div class="form-group text-center text-md-right mt-3">
-              <button type="submit" id="submitBtn" class="button button--active button-contactForm">Send Message</button>
+              <button type="button" id="submitBtn" class="button button--active button-contactForm">Send Message</button>
             </div>
-          </form>
+            <div class="form-group text-center text-md-right mt-3">
+              <p class = "card-text" id = "contactMessage"></p>
+            </div>
+          <!-- </form> -->
         </div>
       </div>
     </div>

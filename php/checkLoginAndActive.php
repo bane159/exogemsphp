@@ -19,8 +19,8 @@
 					<div class="">
 						
 							<h4>You cannot access shop without activating your account!</h4>
-							<p>Contant administrator to activate your profile. OR</p>
-							<a class="btn btn-primary" href="login.php">Login with an activarted account</a>
+							<p>Activate your account via email.(if u didnt see the email contact admin) OR</p>
+							<a class="btn btn-primary" href="contact.php">Contact administrator to activate your account.</a>
 						
 					</div>
 				</div>

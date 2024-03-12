@@ -238,7 +238,43 @@ require_once("php/conn.php");
 
     </div>
    </div>
-   
+
+   <div class = "container">
+    <div class="row">
+        <h3>Contacts</h3>
+    </div>
+   </div>
+
+    <?php 
+    
+    $contacts = getContacts();
+    if($contacts):
+    foreach ($contacts as $c):
+
+        $user = getUser($c -> user_id);
+    ?>
+
+   <div class="container">
+    <div class="row">
+        <h4> <?= $user -> name ?>  <?= $user -> lastname ?>  <?= $user -> email ?></h4>
+    </div>
+    <div class="row" style="width: 50%;">
+        <h5><?= $c -> subject ?></h5>
+    </div>
+    <div class="row d-flex flex-wrap text-wrap" style="width: 50%;">
+        <p><?= $c -> message ?></p>
+    </div>
+   </div>
+
+   <?php endforeach;?>
+   <?php else: ?>
+
+    <div class="row">
+        <h4>Currently There Are No Contacts</h4>
+    </div>
+
+    <?php endif; ?>
+
  <!-- ================ Subscribe section start ================= --> 
  <?php require_once("php/subscribe.php"); ?>
     <!-- ================ Subscribe section end ================= --> 

@@ -387,3 +387,17 @@ function getLatestUser(){
     $query = "SELECT * FROM users WHERE created_at = (SELECT MAX(created_at) FROM users)";
     return $conn -> query( $query ) -> fetch();
 }
+function insertContact($subject, $message, $uid){
+    global $conn;
+    $query = "INSERT INTO contact(user_id, subject, message) VALUES(:id, :subject, :message)";
+    $stmt = $conn -> prepare( $query );
+    $stmt -> bindParam(":id", $uid);
+    $stmt -> bindParam(":subject", $subject);
+    $stmt -> bindParam(":message", $message);
+    return $stmt -> execute();
+}
+function getContacts(){
+    global $conn;
+    $query = "SELECT * FROM contact";
+    return $conn -> query( $query ) -> fetchAll();
+}

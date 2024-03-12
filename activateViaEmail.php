@@ -10,7 +10,7 @@ if(!is_numeric($uid) || $uid <= 0 || !is_numeric($key) || $key <= 0){
 }
 include("php/conn.php");
 try {
-    activateUser2($userId, $key);
+    activateUser2($uid, $key);
     header("Location: index.php?confirm=1");
 }
  catch (PDOException $e) {
