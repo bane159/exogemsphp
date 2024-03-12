@@ -175,12 +175,25 @@ window.onload = () => {
                     console.log("Success")
                     console.log(data.message)
                     document.querySelector("#registrationMessage").classList.remove("text-danger");
-                    document.querySelector("#registrationMessage").innerHTML = data.message;
-                    window.location.href ="login.php";
+                    document.querySelector("#registrationMessage").classList.add("text-success");
+                    document.querySelector("#registrationMessage").innerHTML = data.message + " An confirmation mail has been sent to you.";
+                    let s = 15;
+                    setInterval(() => {
+                        s--;
+                        document.querySelector("#registrationMessage").innerHTML = data.message + " An confirmation mail has been sent to you." + `   --> Redirecting to login page in ${s}s`
+                    },1000)
+
+                    setTimeout(() => {
+                        window.location.href ="login.php";
+                    }, 15000);
+
+
+                    
                 },
                 error: (xhr) => {
                     if(xhr.status == 401){
                         document.querySelector("#registrationMessage").innerHTML = "Email that you entered is already used";
+                        document.querySelector("#registrationMessage").classList.remove("text-success");
                         document.querySelector("#registrationMessage").classList.add("text-danger");
                     }
                 }

@@ -149,6 +149,56 @@ include("php/logic.php");
     </section>
     <!-- ================ Best Selling item  carousel end ================= --> 
 
+    <section class="section-margin calc-60px surveyBlock">
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <p>Make this shop better by answering this survey!</p>
+          <h2>Do a <span class="section-intro__style">Survey</span></h2>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            
+            <!-- <form class=""> -->
+            <?php 
+              $qs = getQuestions();
+              foreach ($qs as $q):
+                $answers = getAnswersForQuestion( $q -> id );
+            ?>
+            <h4 class="fw-bold" id="question-<?= $q -> id ?>"> <?= $q -> question ?></h4>
+
+                <?php foreach( $answers as $answer ): ?>
+
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="<?= $q -> id ?>" id="<?= $answer -> id ?>" value = "<?= $answer -> id ?>"/>
+                  <label class="form-check-label" for="<?= $answer -> id ?>"><?= $answer -> answer ?></label>
+                </div>
+
+                <?php endforeach;?>
+           
+              
+
+
+            
+
+            <?php endforeach;?>
+            <?php
+              if(!didAnswer($_SESSION['user'] -> id)):
+            ?>
+            <input type="button" id="btnSurvey" value="Answer" class="button button-header"/>
+            <br />
+            <?php else: ?>
+              <p class ="text-success">You already answered</p>
+              <?php endif; ?>
+
+            <span id = "surveyMessage" class = "text-danger"></span>
+            <!-- </form> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+ 
+
 
     <!-- ================ Subscribe section start ================= --> 
     <?php require_once("php/subscribe.php"); ?>

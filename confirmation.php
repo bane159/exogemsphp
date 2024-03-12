@@ -9,7 +9,7 @@ if(!is_numeric($orderId)){
   header("Location: 404.php");
   exit();
 }
-// mail( $_SESSION['user'] -> email, "Purchase Confirmation Exogems", "Your order has been confirmed with id $orderId.<br> For more information click this link: https://bane.wtf/exogems/confirmation.php?id=$orderId If you didnt purchase anything DO NOT CLICK THIS");
+// mail( $_SESSION['user'] -> email, "Purchase Confirmation Exogems", "Your order has been confirmed with id $orderId.<br> For more information click this link: https://www.bane.wtf/exogems/confirmation.php?id=$orderId If you didnt purchase anything DO NOT CLICK THIS");
 
 require_once("php/conn.php");
 

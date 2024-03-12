@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("php/logic.php");
-var_dump(!isAdmin());
+// var_dump(!isAdmin());
 if(!isAdmin()){
 
     header("Location: 404.php");
@@ -15,15 +15,15 @@ require_once("php/conn.php");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge"  />
-  <title>Aroma Shop - Cart</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png" />
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css" />
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css" />
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css" />
-	<link rel="stylesheet" href="vendors/linericon/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"  />
+    <title>Aroma Shop - Cart</title>
+    <link rel="icon" href="img/Fevicon.png" type="image/png" />
+    <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="vendors/linericon/style.css" />
 
 
   <link rel="stylesheet" href="css/style.css">
@@ -239,7 +239,9 @@ require_once("php/conn.php");
     </div>
    </div>
    
-
+ <!-- ================ Subscribe section start ================= --> 
+ <?php require_once("php/subscribe.php"); ?>
+    <!-- ================ Subscribe section end ================= --> 
  
 
 

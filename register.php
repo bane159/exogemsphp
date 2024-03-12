@@ -21,6 +21,9 @@ include("php/logic.php");
 <body>
 <?php  include("php/header.php"); ?>
   
+<!-- <div class="br-modal" id="br-appear-modal">
+    <p>Added To Cart!</p>
+  </div> -->
   <!-- ================ start banner area ================= -->	
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">

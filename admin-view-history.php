@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("php/logic.php");
-var_dump(!isAdmin());
+// var_dump(!isAdmin());
 if(!isAdmin()){
 
     header("Location: 404.php");
@@ -69,7 +69,7 @@ require_once("php/conn.php");
   
     <div class = "container">
     <div class="row">
-        <h3>Edit users</h3>
+        <h3>User </h3>
     </div>
    </div>
 
@@ -80,22 +80,61 @@ require_once("php/conn.php");
 
                 <?php 
                 
-                    // $carts = getHistoryCarts($id);
+                    $carts = getHistoryCarts($id);
+                    $orderNumb = 0;
+                    foreach($carts as $cart):
+                        ++$orderNumb;
                 
                 ?>
+                    <h3>Order #<?=$orderNumb ?></h3>
 
-                  <table class="table" id="cartItemsHolder">
 
-				  	<thead>
-						
-					</thead>
-                    <tbody>
-                        
+                    <?php
+                        $cartInfo = getCartItemsWithoutStatus($cart->id);
+                        foreach($cartInfo as $cartItem):
+                            
+                    ?>
+                    
+                    <table class="table" id="cartItemsHolder">
 
-                                   
-						
-                    </tbody>
-                  </table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="<?= $cartItem -> imgSrc?>" alt="alt">
+                                        </div>
+                                        <div class="media-body">
+                                            <p id="textProduct"><?= $cartItem ->text ?></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            
+                            
+                                <td> <?=$cartItem -> totalPerProd ?></td>
+                            
+                            
+                                <td> <?=$cartItem -> totalPerProd * $cartItem -> quantity ?></td>
+                            </tr>
+                                    
+                            
+                        </tbody>
+                    </table>
+
+                    <?php endforeach; ?>
+
+
+                  <?php endforeach; ?>
+
+
               </div>
           </div>
       </div>

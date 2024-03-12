@@ -18,7 +18,8 @@ function get($key) {
 }
 function addUser($name, $lastname, $email, $password, $adress) {
     global $conn;
-    $insertQ = "INSERT INTO users (name, lastname, email, password, adress, role_id) VALUES( :name, :lastname, :email, :password, :adress, 1 )";
+    $ac_key = random_int(0,999999999);
+    $insertQ = "INSERT INTO users (name, lastname, email, password, adress, role_id, activation_key) VALUES( :name, :lastname, :email, :password, :adress, 1, :ac_key)";
         
         $stmt = $conn->prepare($insertQ);
         $stmt->bindParam(":name", $name);
@@ -26,6 +27,7 @@ function addUser($name, $lastname, $email, $password, $adress) {
         $stmt->bindParam(":email", $email);
         $stmt->bindParam(":password", $password);
         $stmt->bindParam(":adress", $adress);
+        $stmt->bindParam(":ac_key", $ac_key);
         $res = $stmt->execute();
         return $res;
 
@@ -206,6 +208,12 @@ function activateUser($userId){
     return $conn -> exec($query);
 
 }
+function activateUser2($userId, $key){
+    global $conn;   
+    $query = "UPDATE users SET isActive = 1 WHERE id = $userId AND activation_key = $key";
+    return $conn -> exec($query);
+
+}
 function deactivateUser($userId){   
 
     global $conn;
@@ -260,6 +268,17 @@ function getCartItems($cartId){
     $rez = $conn -> query($query) -> fetchAll();
     return $rez;
 }
+
+function getCartItemsWithoutStatus($cartId){
+
+    global $conn;
+    $query = "SELECT c.id as cartId, p.id as productId,pic.path as imgSrc, p.name as productName,p.text as `text`, SUM(cp.quantity) as quantity, SUM(cp.quantity) * pri.price as totalPerProd, pri.price as price FROM cart_product cp INNER JOIN products p ON cp.product_id = p.id INNER JOIN cart c ON cp.cart_id = c.id INNER JOIN prices pri ON p.id = pri.product_id INNER JOIN pictures pic ON p.picture_id = pic.id WHERE cp.cart_id = $cartId GROUP BY cp.product_id";
+    $rez = $conn -> query($query) -> fetchAll();
+    return $rez;
+}
+
+
+
 function getCartItemsFROMHISTORY($cartId){
 
     global $conn;
@@ -334,3 +353,37 @@ function getUser($userId){
     return $conn -> query( $query ) -> fetch();
 }
 
+function getHistoryCarts($userId){
+
+    global $conn;
+    $query = "SELECT * FROM cart WHERE user_id = $userId AND status = 0";
+    return $conn -> query( $query ) -> fetchAll();
+
+}
+
+function getQuestions(){
+    global $conn;
+    $query = "SELECT * FROM questions";
+    return $conn -> query( $query ) -> fetchAll();
+}
+function getAnswersForQuestion($question){
+    global $conn;
+    $query = "SELECT * FROM answers WHERE question_id = $question";
+    return $conn -> query( $query ) -> fetchAll();
+}
+function didAnswer($userId){
+    global $conn;
+    $query = "SELECT id FROM users_survey WHERE user_id = $userId";
+    return $conn -> query( $query ) -> fetch();
+}
+function answerSurvey($userId, $ans){
+    global $conn;
+    $query = "INSERT INTO users_survey(user_id, question_id, answer_id) VALUES($userId, 1, $ans)";
+    return $conn -> exec( $query );
+}
+
+function getLatestUser(){
+    global $conn;
+    $query = "SELECT * FROM users WHERE created_at = (SELECT MAX(created_at) FROM users)";
+    return $conn -> query( $query ) -> fetch();
+}
