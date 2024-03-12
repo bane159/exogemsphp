@@ -128,11 +128,20 @@ require_once("php/conn.php");
                                     <button class="removeItem btn removeBtn" data-id="<?= $u -> id?>" type="submit"> <i class="fa-solid fa-x "></i> </button>
 
                                 </td>
+
+
+                                <td>
+                                    
+                                    <a class="removeItem btn btn-info text-white" href = "admin-view-history.php?id=<?= $u -> id?>">View History </a>
+
+                                </td>
                             </tr>
 
                                 <?php endforeach; ?>
 
-
+                                   <tr>
+                                    <td id="delMsg" class = "text-danger"></td>
+                                   </tr>     
 						
                     </tbody>
                   </table>
@@ -166,7 +175,7 @@ require_once("php/conn.php");
 							<th scope="col">email</th>
 							<th scope="col">Adress</th>		
                             <th scope="col">Password</th>
-                            <th scope="col">Role</th>							
+					
 						</tr>
 					</thead>
                     <tbody>
@@ -200,7 +209,7 @@ require_once("php/conn.php");
                                     <div class="media-body">
                                         <input type="text" id="adress" value="" name="adress" placeholder="Adress" class = "form-control"/>
                                         <span id = "adressError"></span>
-                                    </div>
+                                    </div>  
                                 </td>
                                 <td>
                                     <div class="media-body">
@@ -208,15 +217,7 @@ require_once("php/conn.php");
                                         <span id = "passwordError"></span>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="media-body">
-                                       <select name="role" id="role" class = "form-control w-100">
-                                            <option value="0">Choose</option>
-                                            <option value="1">User</option>
-                                            <option value="2">Admin</option>
-                                       </select>
-                                    </div>
-                                </td>
+                                
                                 <td>
                                     <button id = "addUserBtn" class = "btn-success btn">Add User</button>
                                 </td>
@@ -226,7 +227,10 @@ require_once("php/conn.php");
                             </tr>
 
                                 
+                                    <tr>
 
+                                        <td  id="regMsg" class= "text-center"></td>
+                                    </tr>
 
 						
                     </tbody>

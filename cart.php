@@ -69,7 +69,10 @@ include("php/logic.php");
 					<?php 
 					  
 					//    var_dump($cart);
+						$total = 0;					
 					   foreach($cart as $item):
+						$total += $item -> totalPerProd;
+						var_dump($total);
 					?>
 					<tr>
 						<td>
@@ -107,14 +110,14 @@ include("php/logic.php");
 					<?php endforeach; ?>
 
 
-					</tbody>
+					
 						<tr class="out_button_area">
                               <td class="">
-							  Subtotal
+							  Subtotal --> <?= $total == 0? "/" : "$$total" ?>
                               </td>
                               <td class="">
 									
-									<?= "999" ?>
+									
                               </td>
                               <td>
 								
@@ -142,6 +145,7 @@ include("php/logic.php");
                                   </div>
                               </td>
                           </tr>
+						  </tbody>
                   </table>
               </div>
           </div>

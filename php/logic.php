@@ -220,7 +220,7 @@ function deleteUser($userId){
 
 function getCart($userId){
     global $conn;
-    $query = "SELECT id FROM cart WHERE user_id = $userId";
+    $query = "SELECT id FROM cart WHERE user_id = $userId AND status = 1";
     return $conn -> query($query) -> fetch();
 }
 function createCart($userId){
@@ -235,7 +235,12 @@ function addToCart($basketId, $prodId){
 }
 function getCartId($uid){
     global $conn;
-    $query = "SELECT id FROM cart WHERE user_id = $uid";
+    $query = "SELECT id FROM cart WHERE user_id = $uid AND status = 1";
+    return $conn -> query($query) -> fetch();
+}
+function getCartIdFromHistory($uid){
+    global $conn;
+    $query = "SELECT id FROM cart WHERE user_id = $uid AND status = 0 AND created_at = (SELECT MAX(created_at) FROM cart WHERE user_id = $uid AND status = 0)";
     return $conn -> query($query) -> fetch();
 }
 function alreadyInCart($id, $prodId){
@@ -252,6 +257,13 @@ function getCartItems($cartId){
 
     global $conn;
     $query = "SELECT c.id as cartId, p.id as productId,pic.path as imgSrc, p.name as productName,p.text as `text`, SUM(cp.quantity) as quantity, SUM(cp.quantity) * pri.price as totalPerProd, pri.price as price FROM cart_product cp INNER JOIN products p ON cp.product_id = p.id INNER JOIN cart c ON cp.cart_id = c.id INNER JOIN prices pri ON p.id = pri.product_id INNER JOIN pictures pic ON p.picture_id = pic.id WHERE cp.cart_id = $cartId AND c.status = 1 GROUP BY cp.product_id";
+    $rez = $conn -> query($query) -> fetchAll();
+    return $rez;
+}
+function getCartItemsFROMHISTORY($cartId){
+
+    global $conn;
+    $query = "SELECT c.id as cartId, p.id as productId,pic.path as imgSrc, p.name as productName,p.text as `text`, SUM(cp.quantity) as quantity, SUM(cp.quantity) * pri.price as totalPerProd, pri.price as price FROM cart_product cp INNER JOIN products p ON cp.product_id = p.id INNER JOIN cart c ON cp.cart_id = c.id INNER JOIN prices pri ON p.id = pri.product_id INNER JOIN pictures pic ON p.picture_id = pic.id WHERE cp.cart_id = $cartId AND c.status = 0 AND c.created_at = (SELECT MAX(created_at) FROM cart WHERE status = 0 AND cart_id = $cartId) GROUP BY cp.product_id";
     $rez = $conn -> query($query) -> fetchAll();
     return $rez;
 }
@@ -302,3 +314,23 @@ function createOrder($cartId, $total, $username, $lastname, $street, $city, $sta
 
     return $orderId;
 }
+function getOrderInfo($orderId){
+    global $conn;
+    $query = "SELECT * FROM checkout WHERE order_id = $orderId";
+ 
+    return $conn -> query( $query ) -> fetch();
+
+}
+
+function hasActiveCart($userId){
+    global $conn;
+    $query = "SELECT id FROM cart WHERE user_id = $userId AND status = 1";
+    return $conn -> query( $query ) -> fetch();
+}
+function getUser($userId){
+
+    global $conn;
+    $query = "SELECT * FROM users WHERE id = $userId";
+    return $conn -> query( $query ) -> fetch();
+}
+

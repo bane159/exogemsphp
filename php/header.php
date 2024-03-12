@@ -39,7 +39,7 @@ $header = getHeader();
                   
             </ul>
 
-            <ul class="nav-shop d-flex justify-content-evenly my-3">
+            <ul class="nav-shop d-flex justify-content-evenly my-3 align-items-center">
                 <?php
                   foreach($header as $item):
                     if(!isLogged()):
@@ -56,14 +56,22 @@ $header = getHeader();
                   <li class='nav-item'><a class='button button-header' href="<?= $item -> path?>"><?= $item -> name ?></a></li>
                   <?php endif;
                  endforeach;?>
-                
+                 
+                <?php if(isLogged()):?>
+                  <li class='nav-item'>Logged in as: <b><?=$_SESSION['user']-> name?> <?=$_SESSION['user']-> lastname?></b></li>
+
+                <?php endif?>
               
               <li class="nav-item">
                 <button id="cartButton"> 
                   <a href="cart.php">
                     <i class="ti-shopping-cart"></i>
                     <span class="nav-shop__circle" id="cartNumberOfProducts">  
-                      <?php if(isLogged()){
+                      <?php 
+                        if( isLogged() && !hasActiveCart($_SESSION['user'] -> id)){
+                          createCart($_SESSION['user'] -> id);
+                        }
+                      if(isLogged()){
 
                                 $cart = getCartItems(getCartId($_SESSION['user'] -> id) -> id);
                                 //  var_dump($cart);

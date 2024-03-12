@@ -14,11 +14,12 @@ include("logic.php");
 if(isPost()){
 
     try {
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $name = $_POST["name"];
-        $lastname = $_POST["lastname"];
-        $adress = $_POST["adress"];
+        $jsonData = json_decode(file_get_contents("php://input"), true);
+        $email = $jsonData["email"];
+        $password = $jsonData["password"];
+        $name = $jsonData["name"];
+        $lastname = $jsonData["lastname"];
+        $adress = $jsonData["adress"];
 
         $errors = 0;
         $errors += checkReg($email, $regEmail);
@@ -33,7 +34,8 @@ if(isPost()){
             else{
                 $res = addUser($name, $lastname, $email, $passEnc, $adress);
                 if($res){
-                    echo json_encode(array("succes"=> $res, "message" => "U have succesfully registered"));
+                    // activateUser();
+                    echo json_encode(array("succes"=> $res, "message" => "U have succesfully registered this user"));
                     // http_response_code(201);
                 }
                 

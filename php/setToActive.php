@@ -3,7 +3,7 @@
  require_once("conn.php");
 
 $id = post("id");
-var_dump(is_numeric($id));
+// var_dump(is_numeric($id));
 if(is_numeric($id) && $id > 0) {
 
     $succ = activateUser($id);

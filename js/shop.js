@@ -23,12 +23,7 @@ window.onload = () => {
       console.log(perPage)
 
     });
-    
-    // radios = document.getElementsByName("material")
-    // for(let r of radios){
 
-      
-    // }
     let filterCriteriums = $("input[name*='category']")
     for(let f of filterCriteriums){
       if(f.checked){
@@ -138,7 +133,7 @@ window.onload = () => {
             setTimeout(() => {
               document.querySelector("#br-appear-modal").classList.remove('animAppear');
             }, 1000)
-
+            document.querySelector("#cartNumberOfProducts").innerHTML = Number(document.querySelector("#cartNumberOfProducts").innerHTML) + 1
           }
           if(xhr.status == 208){
             console.log("401");

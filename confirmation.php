@@ -1,7 +1,25 @@
 <?php
 session_start();
-require_once("php/conn.php");
 include("php/logic.php");
+$orderId = get("id");
+
+
+
+if(!is_numeric($orderId)){
+  header("Location: 404.php");
+  exit();
+}
+// mail( $_SESSION['user'] -> email, "Purchase Confirmation Exogems", "Your order has been confirmed with id $orderId.<br> For more information click this link: https://bane.wtf/exogems/confirmation.php?id=$orderId If you didnt purchase anything DO NOT CLICK THIS");
+
+require_once("php/conn.php");
+
+
+
+// var_dump($orderId);
+
+
+$orderInfo = getOrderInfo($orderId);
+// var_dump($orderInfo);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,17 +28,14 @@ include("php/logic.php");
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+	<link rel="icon" href="img/Fevicon.png" type="image/png" />
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css" />
+	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css" />
+	<link rel="stylesheet" href="vendors/linericon/style.css" />
 
-  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
@@ -49,31 +64,36 @@ include("php/logic.php");
   <section class="order_details section-margin--small">
     <div class="container">
       <p class="text-center billing-alert">Thank you. Your order has been received.</p>
-      <div class="row mb-5">
+      <div class="row mb-5 justify-content-between">
         <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
           <div class="confirmation-card">
             <h3 class="billing-title">Order Info</h3>
             <table class="order-rable">
+              
+
               <tr>
                 <td>Order number</td>
-                <td>: 60235</td>
+                <td><?= $orderInfo -> order_id?></td>
               </tr>
+
+              
               <tr>
                 <td>Date</td>
-                <td>: Oct 03, 2017</td>
+                <td><?=$orderInfo -> created_at ?> </td>
               </tr>
               <tr>
                 <td>Total</td>
-                <td>: USD 2210</td>
+                <td>$<?= $orderInfo -> total ?></td>
               </tr>
-              <tr>
+              
+              <!-- <tr>
                 <td>Payment method</td>
-                <td>: Check payments</td>
-              </tr>
+                <td>Peypal</td>
+              </tr> -->
             </table>
           </div>
         </div>
-        <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+        <!-- <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
           <div class="confirmation-card">
             <h3 class="billing-title">Billing Address</h3>
             <table class="order-rable">
@@ -95,31 +115,42 @@ include("php/logic.php");
               </tr>
             </table>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
           <div class="confirmation-card">
             <h3 class="billing-title">Shipping Address</h3>
             <table class="order-rable">
               <tr>
                 <td>Street</td>
-                <td>: 56/8 panthapath</td>
+                <td><?= $orderInfo -> street?></td>
               </tr>
               <tr>
                 <td>City</td>
-                <td>: Dhaka</td>
+                <td><?= $orderInfo -> city?></td>
               </tr>
               <tr>
-                <td>Country</td>
-                <td>: Bangladesh</td>
+                <td>State</td>
+                <td><?= $orderInfo -> state?></td>
               </tr>
               <tr>
                 <td>Postcode</td>
-                <td>: 1205</td>
+                <td><?= $orderInfo -> postal?></td>
               </tr>
             </table>
           </div>
         </div>
       </div>
+
+      <?php
+      
+      
+      $cartId = getCartIdFromHistory($_SESSION['user'] -> id ) -> id;
+      $cart = getCartItemsFROMHISTORY( $cartId );
+      // var_dump( $cart );
+      $totalPrice = 0;
+
+      ?>
+
       <div class="order_details_table">
         <h2>Order Details</h2>
         <div class="table-responsive">
@@ -132,61 +163,22 @@ include("php/logic.php");
               </tr>
             </thead>
             <tbody>
+              <?php foreach($cart as $item):
+                 $totalPrice += $item -> totalPerProd;
+              ?>
               <tr>
                 <td>
-                  <p>Pixelstore fresh Blackberry</p>
+                  <p><?= $item -> text?></p>
                 </td>
                 <td>
-                  <h5>x 02</h5>
+                  <h5>x <?= $item -> quantity?></h5>
                 </td>
                 <td>
-                  <p>$720.00</p>
+                  <p>$<?= $item -> totalPerProd?></p>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <p>Pixelstore fresh Blackberry</p>
-                </td>
-                <td>
-                  <h5>x 02</h5>
-                </td>
-                <td>
-                  <p>$720.00</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>Pixelstore fresh Blackberry</p>
-                </td>
-                <td>
-                  <h5>x 02</h5>
-                </td>
-                <td>
-                  <p>$720.00</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>Subtotal</h4>
-                </td>
-                <td>
-                  <h5></h5>
-                </td>
-                <td>
-                  <p>$2160.00</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>Shipping</h4>
-                </td>
-                <td>
-                  <h5></h5>
-                </td>
-                <td>
-                  <p>Flat rate: $50.00</p>
-                </td>
-              </tr>
+              
+              <?php endforeach; ?>
               <tr>
                 <td>
                   <h4>Total</h4>
@@ -195,7 +187,7 @@ include("php/logic.php");
                   <h5></h5>
                 </td>
                 <td>
-                  <h4>$2210.00</h4>
+                  <h4>$<?= $totalPrice  //shipping?></h4>
                 </td>
               </tr>
             </tbody>

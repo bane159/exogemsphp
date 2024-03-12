@@ -17,7 +17,7 @@ require_once("php/conn.php");
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge"  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Aroma Shop - Cart</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png" />
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css" />
@@ -26,7 +26,7 @@ require_once("php/conn.php");
 
 
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <!-- <div id="spinner-holder">
@@ -90,10 +90,10 @@ require_once("php/conn.php");
                                     </div>
                                 </td>
                                 <td>
-                                    <h5 id="price"><?=$su -> name ?></h5>
+                                    <h5 id="price"><?=$su -> name ?> </h5>
                                 </td>
                                 <td>
-                                    <h5 id="price"><?=$su -> status ? "true" : "false"?></h5>
+                                    <h5 id="price"><?=$su -> status ? "true" : "false"?> </h5>
                                 </td>
                                 <td>
                                     <?php if($su -> status):?>
@@ -110,7 +110,7 @@ require_once("php/conn.php");
                                         <form action="php/subscribeLogic.php" method = "POST">
 
                                             <button class="btn btn-primary mr-auto mb-1" id="btn-subscribe" type = "submit">Subscribe Now</button>
-                                            <input type="hidden" value="<?=$su -> id ?>" name="user_id"/>
+                                            <input type="hidden" value="<?=$su -> id ?>" name="user_id" />
 
                                         </form>
 
