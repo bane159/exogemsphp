@@ -83,7 +83,7 @@ $orderInfo = getOrderInfo($orderId);
               </tr>
               <tr>
                 <td>Total</td>
-                <td>$<?= $orderInfo -> total ?></td>
+                <td>$ <?= $orderInfo -> total ?></td>
               </tr>
               
               <!-- <tr>

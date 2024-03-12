@@ -40,7 +40,14 @@ if($error == 0) {
     $userId = $_SESSION['user'] -> id;
     $cartId = getCartId($userId) -> id;
 
-    $orderId = createOrder($cartId, 9999, $name, $lastname, $street,$city,$state,$zip,$message);
+    $cart = getCartItems( $cartId );
+    $total = 0;
+    foreach($cart as $i) {
+        $total += $i -> totalPerProd;
+    }
+
+
+    $orderId = createOrder($cartId, $total , $name, $lastname, $street,$city,$state,$zip,$message);
 
     $res = orderFromCart($userId);
 
