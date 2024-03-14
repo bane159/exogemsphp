@@ -137,7 +137,7 @@ $pages = ceil($countResult->ProductCount / $perPage);
   <!--================ Start Header Menu Area =================-->
   <?php 
       require "php/checkLoginAndActive.php";
-    ?>
+  ?>
 	<?php include("php/header.php"); ?>
 	<!--================ End Header Menu Area =================-->
 
@@ -397,8 +397,11 @@ $pages = ceil($countResult->ProductCount / $perPage);
                   <?php endfor ?>
                   </div>
             
+                  <div class="row">
+                    
+                    <a class = "btn my-5 btn-info " href = "shopHistory.php">Shop Shopping History</a>
 
-
+                  </div>
 
           </section>
           <!-- End Best Seller -->

@@ -1,6 +1,6 @@
 window.onload = () => {
 
-    // $("body").css("overflow", "scroll")
+
     let nameInput = $("#name");
 
 
@@ -26,24 +26,6 @@ window.onload = () => {
     })
 
 
-    // ===========================   mail validaiton    ===================================
-
-    // let emailInput = $("#email");
-    // emailInput.on("blur", () => {
-        
-    //     if(emailInput.val() == ''){
-    //         removeBorder("email")
-    //         removeError("emailError")
-    //         return
-    //     }
-    // if(!emailRegEx.test(emailInput.val())){
-    //         dangerBorder("email")
-    //         displayError("email is in wrong format", "emailError")
-    //         return
-    //     }
-    //     successBorder("email")
-    //     removeError("emailError")
-    // })
     //============================= Text Area=====================================
     const areaRegEx = "";
     $("#message").on("keyup", () => {
@@ -51,22 +33,7 @@ window.onload = () => {
 
     })
 
-    // ===========================   country validaiton    ===================================
-
-    // let countrySelect = $("#country")
-    // countrySelect.on("change", () => {
-
-    //     if(countrySelect.val() == "Choose"){
-    //         dangerBorder("country")
-    //         displayError("country is required", "countryError")
-    //         return
-    //     }
-
-    //     successBorder("country")
-    //     removeError("countryError")
-
-    // })
-
+    
 
     // ===========================   submit validaiton    ===================================
 
@@ -82,17 +49,6 @@ window.onload = () => {
             displayError("Subject ineeds to have atleast 2 letters and no special characters", "nameError")
             
         }
-        // if(!emailRegEx.test(emailInput.val())){
-        //     dangerBorder("email")
-        //     displayError("email is in wrong format", "emailError")
-        // }
-
-        // if(countrySelect.val() == "Choose"){
-        //     dangerBorder("country")
-        //     displayError("country is required", "countryError")
-        // }
-     
-
 
         // ========= Check regex then send the form if true =============
 

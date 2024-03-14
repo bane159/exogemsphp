@@ -59,6 +59,7 @@ $header = getHeader();
                  
                 <?php if(isLogged()):?>
                   <li class='nav-item'>Logged in as: <b><?=$_SESSION['user']-> name?> <?=$_SESSION['user']-> lastname?></b></li>
+                 
 
                 <?php endif?>
               

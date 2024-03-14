@@ -401,3 +401,68 @@ function getContacts(){
     $query = "SELECT * FROM contact";
     return $conn -> query( $query ) -> fetchAll();
 }
+
+function getCats(){
+    global $conn;
+    $query = "SELECT * FROM category";
+    return $conn -> query( $query ) -> fetchAll();
+}
+
+function addNewProduct($name, $text, $weight, $available, $category, $price, $path, $material){
+    global $conn;
+    $conn -> beginTransaction();
+
+    $query1 = "INSERT INTO pictures(path) VALUES('$path')";
+    $conn -> exec( $query1 );
+    $picId = $conn -> lastInsertId();
+    
+    $query2 = "INSERT INTO products(name, text, weight, quantityAvailable, category_id, picture_id) VALUES('$name', '$text', $weight, $available, $category, $picId)";
+    $conn -> exec( $query2 );
+    
+    $pid = $conn -> lastInsertId();
+
+    $query3 = "INSERT INTO prices(product_id, price) VALUES($pid, $price)";
+
+    $conn -> exec( $query3 );
+
+    $query4 = "INSERT INTO materials_products(product_id, material_id) VALUES($pid, $material)";
+
+    $conn -> exec( $query4 );
+
+    return $conn -> commit();
+}
+
+function addCategory($cat){
+    global $conn;
+    $query = "INSERT INTO category(name) VALUES('$cat')";
+
+    return $conn -> exec( $query );
+}
+
+function addMaterial($mat){
+    global $conn;
+    $query = "INSERT INTO materials(name) VALUES('$mat')";
+
+    return $conn -> exec( $query );
+}
+function removeCategory($id){
+    global $conn;
+    $query = "DELETE FROM category WHERE id = $id";
+    return $conn -> exec( $query );
+}
+function removeMaterial($id){
+    global $conn;
+    $query = "DELETE FROM materials WHERE id = $id";
+    return $conn -> exec( $query );
+}
+
+function editCategory($id ,$name){
+    global $conn;
+    $query = "UPDATE category SET name = '$name' WHERE id = $id";
+    return $conn -> exec( $query );
+}
+function editMaterial($id ,$name){
+    global $conn;
+    $query = "UPDATE materials SET name = '$name' WHERE id = $id";
+    return $conn -> exec( $query );
+}

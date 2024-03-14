@@ -239,6 +239,27 @@ require_once("php/conn.php");
     </div>
    </div>
 
+
+   <div class = "container">
+    <div class="row">
+        <h3>Edit stuff</h3>
+    </div>
+   </div>
+   <div class="container my-5"> 
+        <div class="row justify-content-around">
+
+            <a href="admin-add-product.php" class = "btn btn-primary"> Add a product</a>
+        
+        
+            <a href="admin-edit-category.php" class = "btn btn-primary"> Edit Category</a>
+
+            <a href="admin-edit-material.php" class = "btn btn-primary"> Edit Material</a>
+            
+        </div>
+   </div>
+
+
+
    <div class = "container">
     <div class="row">
         <h3>Contacts</h3>

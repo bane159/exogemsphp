@@ -1,7 +1,9 @@
 <?php
 session_start();
-require_once("php/conn.php");
 include("php/logic.php");
+
+
+require_once("php/conn.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +60,7 @@ include("php/logic.php");
 						$total = 0;					
 					   foreach($cart as $item):
 						$total += $item -> totalPerProd;
-						var_dump($total);
+						// var_dump($total);
 					?>
 					<tr>
 						<td>
@@ -139,7 +141,11 @@ include("php/logic.php");
       </div>
   </section>
   <!--================End Cart Area =================-->
-
+<div class="container">
+	<div class="row">
+		<a class = "btn my-5 btn-info " href = "shopHistory.php">Shop Shopping History</a>
+	</div>
+</div>
 
 
   <!--================ Start footer Area  =================-->	

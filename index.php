@@ -55,7 +55,7 @@ include("php/logic.php");
               <h4>Buy our jewlary</h4>
               <h1>Browse Our Premium Products</h1>
               <p>Us which over of signs divide dominion deep fill bring they're meat beho upon own earth without morning over third. Their male dry. They are great appear whose land fly grass.</p>
-              <a class="button button-hero" href="category.html">Browse Now</a>
+              <a class="button button-hero" href="category.php">Browse Now</a>
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@ include("php/logic.php");
             </div>
             <div class="card-body">
               <p><?=$tp -> category ?></p>
-              <h4 class="card-product__title"><a href="single-product.html"><?= $tp -> text ?></a></h4>
+              <h4 class="card-product__title"><a href="single-product.php"><?= $tp -> text ?></a></h4>
               <p class=" br-sm-text-sellers"><?= $tp -> unitsSold?> sold!</p>
               <p class="  text-success"><?= $tp -> available?> sold!</p>
               <p class="card-product__price">$ <?= $tp -> price?></p>
@@ -148,7 +148,7 @@ include("php/logic.php");
       </div>
     </section>
     <!-- ================ Best Selling item  carousel end ================= --> 
-
+      <?php if(isLogged()): ?>
     <section class="section-margin calc-60px surveyBlock">
       <div class="container">
         <div class="section-intro pb-60px">
@@ -182,7 +182,7 @@ include("php/logic.php");
 
             <?php endforeach;?>
             <?php
-              if(!didAnswer($_SESSION['user'] -> id)):
+              if(isLogged() && !didAnswer($_SESSION['user'] -> id)):
             ?>
             <input type="button" id="btnSurvey" value="Answer" class="button button-header"/>
             <br />
@@ -196,6 +196,7 @@ include("php/logic.php");
         </div>
       </div>
     </section>
+    <?php endif ?>
 
  
 

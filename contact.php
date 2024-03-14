@@ -26,7 +26,7 @@ include("php/logic.php");
 					<h1>Contact Us</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
             </ol>
           </nav>
