@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("php/logic.php");
-var_dump(!isAdmin());
+
 if(!isAdmin()){
 
     header("Location: 404.php");
@@ -10,10 +10,10 @@ if(!isAdmin()){
 
 require_once("php/conn.php");
 
-var_dump("RELOADED");
+
 if(isPost()){
     $regName = "/^[A-Z][a-z]{2,10}$/";
-    var_dump("POSTT");
+   
 
     $name = post("name");
     $text = post("text");

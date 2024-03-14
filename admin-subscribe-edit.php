@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("php/logic.php");
-var_dump(!isAdmin());
+
 if(!isAdmin()){
 
     header("Location: 404.php");

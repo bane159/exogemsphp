@@ -10,12 +10,12 @@ $successfull = UNblockUser($userId);
 
 if($successfull) {
 
-
+    ob_end_clean();
     header("Location: " . $_SERVER['HTTP_REFERER']);
     
 }
 else {
     // header('Location: ../404.php');
-    var_dump($successfull);
+    
 }
 

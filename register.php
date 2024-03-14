@@ -77,7 +77,7 @@ include("php/logic.php");
 									<span id = "adressError"></span>
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="password" name="password" placeholder="Password" placeholder = 'Password' />
+									<input type="password" class="form-control" id="password" name="password" placeholder="Password" placeholder = 'Password' />
 									<span id = "passwordError"></span>
 								</div>
 								<!-- <div class="col-md-12 form-group">
