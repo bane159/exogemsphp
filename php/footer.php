@@ -18,10 +18,10 @@
 							<h4 class="footer_title">Quick Links</h4>
 							<ul class="list">
 								<li><a href="#">Home</a></li>
-								<li><a href="category.html">Shop</a></li>
-								<li><a href="contact.html">Contact</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="Dokumentacija.docx" target="_blank">Documentacija</a></li>
+								<li><a href="category.php">Shop</a></li>
+								<li><a href="contact.php">Contact</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="DokumentacijaExoGemsPhp.pdf" target="_blank">Documentacija</a></li>
 							</ul>
 						</div>
 					</div>

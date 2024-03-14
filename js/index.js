@@ -1,5 +1,25 @@
 var fistValue, secondValue;
 window.onload = () => {
+
+
+
+  $(".relocateStock").on("click", () => {
+    window.location = "category.php?p=1&page=1";
+    console.log("Click");
+  });
+
+  
+  $(".relocateTrening").on("click", () => {
+    window.location = "category.php?p=1&page=1";
+    console.log("Click");
+  });
+
+
+
+
+
+
+
   console.log("RAdI");
   let first =   document.getElementsByName("1");
 $("[name = 1]").on("change", () => {
@@ -46,9 +66,9 @@ $("#btnSurvey").on("click", () => {
       $("#surveyMessage").html(json.msg)
       
 
-  }).catch( (xhr)  => {
-      console.log(xhr);
-  })
+    }).catch( (xhr)  => {
+        console.log(xhr);
+    })
   }
 
 })

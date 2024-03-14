@@ -11,7 +11,6 @@ if(!isAdmin()){
 
 require_once("conn.php");
 
-// $cat = post("category");
 $id = post("id");
 
 if(empty($id)){
@@ -19,10 +18,9 @@ if(empty($id)){
 }
 
 $res = removeMaterial($id);
-var_dump($res);
 if($res){
     ob_end_clean();
-    header("Location: ../admin.php");
+    header("Location: ../admin-edit-material.php");
 }
 else
 {

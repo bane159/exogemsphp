@@ -127,7 +127,8 @@ include("php/logic.php");
               <img class="img-fluid" src="<?= $tp -> imgSrc?>" alt="" />
               <ul class="card-product__imgOverlay">
                 <!-- <li><button><i class="ti-search"></i></button></li> -->
-                <li><button><i class="ti-shopping-cart"></i></button></li>
+                <!-- <li><button><i class="ti-shopping-cart"></i></button></li> -->
+                <li><button class="relocateStock"><i class="ti-search"></i></button></li>
                 <!-- <li><button><i class="ti-heart"></i></button></li> -->
               </ul>
             </div>
@@ -135,7 +136,7 @@ include("php/logic.php");
               <p><?=$tp -> category ?></p>
               <h4 class="card-product__title"><a href="single-product.php"><?= $tp -> text ?></a></h4>
               <p class=" br-sm-text-sellers"><?= $tp -> unitsSold?> sold!</p>
-              <p class="  text-success"><?= $tp -> available?> sold!</p>
+              <p class="  text-success"><?= $tp -> available?> Available!</p>
               <p class="card-product__price">$ <?= $tp -> price?></p>
             </div>
 
@@ -223,7 +224,6 @@ include("php/logic.php");
 
   <script src="js/index.js"></script>
 
-  <script src="js/main.js"></script>
   
 </body>
 </html>

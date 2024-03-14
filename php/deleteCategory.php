@@ -22,7 +22,7 @@ $res = removeCategory($id);
 // var_dump($res);
 if($res){
     ob_end_clean();
-    header("Location: ../admin.php");
+    header("Location: ../admin-edit-category.php");
 }
 else
 {

@@ -25,7 +25,6 @@ if(empty($name)){
 }
 
 $res = editCategory($id ,$name);
-var_dump($res);
 if($res){
     ob_end_clean();
     header("Location: ../admin-edit-category.php");
