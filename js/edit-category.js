@@ -20,6 +20,7 @@ window.onload = () => {
 
         }).catch( (params) => {
             console.log(params);
+            console.log(params.body);
         })
 
     });

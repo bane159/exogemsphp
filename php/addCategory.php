@@ -1,11 +1,10 @@
-
 <?php
 session_start();
 header("Content-type: application/json");
 include("logic.php");
 // var_dump(!isAdmin());
 if(!isAdmin()){
-
+    
     header("Location: 404.php");
     exit();
 }

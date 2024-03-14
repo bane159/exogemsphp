@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 header("Content-type: application/json");
@@ -20,7 +19,7 @@ if(empty($id)){
 }
 
 $res = removeCategory($id);
-var_dump($res);
+// var_dump($res);
 if($res){
     ob_end_clean();
     header("Location: ../admin.php");
