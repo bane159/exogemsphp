@@ -3,7 +3,7 @@ window.onload = () => {
 
 
     const emailRegEx = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
-    const passRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    const passRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     const nameRegEx = /^[A-Z][a-z]{2,10}$/;
     const lastnameRegEx = /^[A-Z][a-z]{2,15}$/;
 
@@ -196,6 +196,7 @@ window.onload = () => {
                         document.querySelector("#registrationMessage").classList.remove("text-success");
                         document.querySelector("#registrationMessage").classList.add("text-danger");
                     }
+                    console.log(xhr);
                 }
 
               });

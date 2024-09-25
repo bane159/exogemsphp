@@ -4,7 +4,7 @@ window.onload = () => {
 
 
   $(".relocateStock").on("click", () => {
-    window.location = "category.php?p=1&page=1";
+    window.location.href = "category.php?p=1&page=1";
     console.log("Click");
   });
 

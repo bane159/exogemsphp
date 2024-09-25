@@ -364,7 +364,7 @@ $pages = ceil($countResult->ProductCount / $perPage);
                 </div>
               </div>  
             
-              <?php endforeach;?>
+          <?php endforeach;?>
               </div>
 
               <?php 

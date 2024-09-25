@@ -70,9 +70,7 @@ function getFullUser($email, $password){
     $stmt->bindParam(":password", $enc);
     $stmt->execute();
     return $stmt -> fetch();
-
 }
-
 function getHeader(){
     global $conn;
     $query = "SELECT * FROM header";
@@ -82,22 +80,18 @@ function getHeader(){
 function isLogged()
 {
     return isset($_SESSION["user"]);
-
 }
 function isInactive(){
     return isLogged() && $_SESSION["user"] -> isActive == 0;
 }
-
 function isAdmin(){
     return isLogged() && $_SESSION["user"] -> roleName == "admin";
 }
-
 function getTrendingProducts(){
     global $conn; //slika kategorija tekst cena
     $query = "SELECT cat.name as category, pic.path as imgSrc, p.text as text, pri.price as price, p.unitsSold as unitsSold  FROM products p JOIN pictures pic ON p.picture_id = pic.id JOIN category as cat ON p.category_id = cat.id JOIN prices pri ON pri.product_id = p.id
     WHERE pri.status = 1 AND p.unitsSold > (SELECT AVG(unitsSold) FROM products)
     ORDER BY p.id";
-
     $res = $conn -> query($query) -> fetchAll();
     return $res;
 }
