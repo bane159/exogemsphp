@@ -1,6 +1,6 @@
 This is my first serious SSR web application, thats based on a web shop.
 
-### You can check out my official docs on this project here: https://github.com/bane159/ExoGems/blob/main/Dokumentacija.pdf (serbian version only.)
+### You can check out my official docs on this project here: [https://github.com/bane159/ExoGems/blob/main/Dokumentacija.pdf](https://github.com/bane159/exogemsphp/blob/main/DokumentacijaExoGemsPhp.pdf) (serbian version only.)
 ### Also be sure to check out the live Web Application hosted on my  VPS.: https://exogemsphp.branislav.dev/index.php
 ##  Note
 Built entirely without AI tools (2024) to focus on hands-on learning and deep understanding of PHP and web development fundamentals.
